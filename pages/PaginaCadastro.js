@@ -1,8 +1,21 @@
-import React from 'react'
-import { View, Text, StyleSheet, TextInput, ScrollView, TouchableOpacity } from 'react-native'
+import React, { useState } from 'react'
+import { View, Text, StyleSheet, TextInput, ScrollView, TouchableOpacity, Alert } from 'react-native'
 import 'react-native-gesture-handler'
+import { cadastrar } from '../src/api/usuario'
 
-const Cadastro = ({navigation}) => {
+const Cadastro = ({ navigation }) => {
+    const [name, setname] = useState('')
+    const [email, setemail] = useState('')
+
+    const fazercadastro = () => {
+        cadastrar(name, email)
+            .then(() => {
+                Alert.alert('Cadastro com sucesso');
+                navigation.navigate('LOGIN')
+            })
+            .catch(() => Alert.alert('Erro ao cadastrar, tente novamente!'))
+    }
+
     return (
         <View style={styles.container}>
             <View>
@@ -11,21 +24,24 @@ const Cadastro = ({navigation}) => {
             <TextInput style={styles.entradaDeTexto}
                 placeholder='  Digite o seu Nome'
                 placeholderTextColor='black'
+                value={name}
+                onChangeText={(text) => { setname(text) }}
             />
             <TextInput style={styles.entradaDeTexto}
                 placeholder='  Digite aqui seu E-mail'
                 placeholderTextColor='black'
+                value={email}
+                onChangeText={(text) => { setemail(text) }}
             />
             <View>
                 <TouchableOpacity style={styles.button2}
-                onPress = {() => {navigation.navigate('LOGIN')}}>
+                    onPress={fazercadastro}>
                     <Text style={styles.buttonText}>Cadastrar</Text>
                 </TouchableOpacity>
             </View>
         </View>
     )
 }
-
 
 export default Cadastro
 
@@ -49,7 +65,6 @@ const styles = StyleSheet.create({
         backgroundColor: '#F4F1DE',
         marginVertical: 7,
         borderRadius: 5,
-
     },
     containerButton: {
         flex: 1,
