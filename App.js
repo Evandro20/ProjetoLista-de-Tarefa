@@ -29,7 +29,7 @@ const Stack = createStackNavigator()
 export default function App() {
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName = 'TAREFA'>
+      <Stack.Navigator initialRouteName = 'CADASTRO'>
       <Stack.Screen name = "LOGIN" component = {Login} options = {{headerShown: false,}}/>
       <Stack.Screen name = "CADASTRO" component = {Cadastro} options = {{headerShown: false,}}/>
       <Stack.Screen name = "TAREFA" component = {Tarefa} options = {{headerShown: false,}}/>
